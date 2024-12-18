@@ -45,7 +45,7 @@ El funcionamiento del ESP es el siguiente:
 
   2. En caso de que haya algo para leer, leer del puerto serie un **char**.
 
-  3. Si el **char** leido se corresponde con el de fin de mensaje, habiéndose recibido antes el de inicio de mensaje, entonces se procesa el mensaje que se ha estado recibiendo.
+  3. Si el **char** leido se corresponde con el de fin de mensaje, habiéndose recibido antes el de inicio de mensaje, entonces se procesa el mensaje que se ha estado recibiendo y se comprueba si es válido.
 
   4. Construir un JSON con los valores obtenidos del procesamiento del mensaje.
 
