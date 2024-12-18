@@ -35,7 +35,7 @@ El ESP es el encargado de:
 
 De esta forma se libera al arduino la carga añadida de gestionar el ping y los cálculos de tiempos, además de reducir el número de bytes a enviar por el puerto serie.
 
-El funcionamiento del ESP es el siguiente:
+El funcionamiento del ESP32 es el siguiente:
 - Al iniciarse:
   1. Conectarse a la wifi y al servidor *MQTT*.
 
@@ -54,5 +54,13 @@ El funcionamiento del ESP es el siguiente:
 Para crear el mensaje JSON hemos utilizado la librería **ArduinoJson**.
 
 ## Comunicación serie
+Para la comuniación serie entre el Arduino y el ESP32 hemos implementado el siguiente protocolo:
+
+- En caso de que haya un valor a enviar además de la acción: **{action|value}**
+- Si sólo es necesario enviar una acción: **{action}**
+
+El char **{** indica que lo siguiente que se reciba es el mensaje hasta que se recibe le char **}**.
+**action** es un entero que se corresponde con los posibles valores de acción.
+**value** es el valor numérico que es necesario en algunos mensajes.
 
 ## Dificultades
