@@ -28,7 +28,14 @@ Para el comportamiento siguelineas, se ha implementado un control basado en caso
 El otro caso principal en el que no se esta detectando la linea, implementa el comportamiento busca linea y se envia el mensaje de linea perdidda y inicio de busqueda de linea al ESP, y se divide en dos casos. En el primer caso, la ultima que se vio la linea, estaba a la izquierda, en este caso se pararan los motores de la izquierda por completo, para asi girar mas bruscamente que en el giro a la izquierda normal, para encontrar la linea antes. El otro caso es que la ultima vez que se vio la linea, estuviera a la derecha, en este caso se pararan los motores de la derecha, para asi girar mas bruscamente que en el giro a la derecha normal, para encontrar la linea antes.
 
 ### ESP32
-El ESP es el encargado de gestionar tanto la publiación de mensajes por *MQTT* como 
+El ESP es el encargado de:
+    - la publiación de mensajes por *MQTT*
+    - la publación cada cuatro segundos del mensaje ping
+    - calcular el tiempo de vuelta
+
+De esta forma se libera al arduino la carga añadida de gestionar el ping y los cálculos de tiempos, además de reducir el número de bytes a enviar por el puerto serie.
+
+La funcionalidad del ESP es la siguiente:
 
 
 ## Funcionalidades
