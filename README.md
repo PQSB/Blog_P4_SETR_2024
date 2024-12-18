@@ -35,13 +35,22 @@ El ESP es el encargado de:
 
 De esta forma se libera al arduino la carga añadida de gestionar el ping y los cálculos de tiempos, además de reducir el número de bytes a enviar por el puerto serie.
 
-La funcionalidad del ESP es la siguiente:
-1. Conectarse a la wifi y al servidor *MQTT*
+El funcionamiento del ESP es el siguiente:
+- Al iniciarse:
+  1. Conectarse a la wifi y al servidor *MQTT*
+
   2. Comunicar al Arduino que ya está conectado para que este comience la vuelta.
-  3. En cada iteración del void loop, se comprueba si debe ejecutarse el thread para mandar el ping y se lee del puerto serie en caso de que haya información disponible. Si el **char** leido se corresponde con el de fin de mensaje, habiéndose recibido antes el de inicio de mensaje, entonces se procesa el mensaje que se ha recibido.
-  4. Una vez que se tiene la acción y el valor a enviar en caso de que lo haya, se construye un JSON y se publica.
+- En el void loop:
+  1. Comprobar si debe ejecutarse el thread para mandar el ping.
 
+  2. En caso de que haya algo para leer, leer del puerto serie un **char**.
 
-## Funcionalidades
+  3. Si el **char** leido se corresponde con el de fin de mensaje, habiéndose recibido antes el de inicio de mensaje, entonces se procesa el mensaje que se ha estado recibiendo.
+
+  4. Construir un JSON con los valores obtenidos del procesamiento del mensaje.
+
+  5. Publicar el JSON.
+
+## Comunicación serie
 
 ## Dificultades
