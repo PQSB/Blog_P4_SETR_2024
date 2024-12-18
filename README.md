@@ -22,6 +22,7 @@ El Sistema dede de ser capaz de:
 
 ### ESP32
 
+
 ## Funcionalidades
 
 ## Dificultades
