@@ -2,7 +2,7 @@
 
 **Fecha:** 19/12/2024
 
-**Autores:** Andrés Galea Torrecilla and Adrián Navarredonda
+**Autores:** Andrés Galea Torrecilla y Adrián Navarredonda
 
 **Vídeo de ejecución:** 
 
