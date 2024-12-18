@@ -59,8 +59,10 @@ Para la comuniación serie entre el Arduino y el ESP32 hemos implementado el sig
 - En caso de que haya un valor a enviar además de la acción: **{action|value}**
 - Si sólo es necesario enviar una acción: **{action}**
 
-El char **{** indica que lo siguiente que se reciba es el mensaje hasta que se recibe le char **}**.
+El char **"{"** indica que lo siguiente que se reciba es el mensaje hasta que se recibe el char **"}"**.
 **action** es un entero que se corresponde con los posibles valores de acción.
 **value** es el valor numérico que es necesario en algunos mensajes.
+
+Las funciones para comprobar si el mensaje es válido, procesar el mensaje y crear el JSON están definidas en una librería que hemos llamado **communication_stub**. Está librería también incluye los enteros correspondientes a cada tipo de acción.
 
 ## Dificultades
