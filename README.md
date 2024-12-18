@@ -20,6 +20,13 @@ El Sistema dede de ser capaz de:
 
 ### Arduino
 
+Para la implementacion del Arduino, decidimos que lo mejor seria introducir el planificador FreeRTOS para Arduino, este planificador tiene dos tareas. La primera tarea consiste en leer sensor de ultrasonidos, y en caso de detectar un obstaculo delante del coche, se marca el fin de vuelta, enviando al ESP32 tres mensajes, estos siendo el mensaje de obstaculo detectado, el mensaje de Vuelta terminada, y el mensaje de porcentaje de vuelta con linea vista.
+
+En cuanto a la otra tarea, esta se encarga de leer el sensor de infrarrojos, asi como de comandar a los motores. En esta tarea, primero se leera el sensor de infrarrojos, despues de sumara 1 a el numero de total de lecturas del infrarrojo, y 1 a el numero total de veces que se ha visto la linea si esta se ha visto, esto para el porcentaje de vuelta con linea vista. Tras esto, se ejecutara el comportamiento siguelineas. En caso de detectar la linea, y haberla perdido en iteraciones anteriores, se enviara al ESP los mensajes de linea encontrada, y fin de busqueda de linea
+
+Para el comportamiento siguelineas, se ha implementado un control basado en casos, distinguiendo 2 casos principales, en uno se esta viendo la linea, y en el otro no. En el caso de que se este viendo la linea, se distinguen 3 casos, el primero en que la linea se ha detectado en el sensor central del infrarrojo, por lo que se comandara los motores a la misma velocidad para ir recto. En el caso de que se vea la linea en el sensor izquierdo de infrarrojos, en cuyo caso los motores de la izquierda reduciran su velocidad a la mitad, para girar hacia la izquierda. Y el ultimo caso en el que la linea es visible a la derecha, en este caso se reducira a la mitad la velocidad de los motores de la derecha, haciendo que el coche gire hacia la derecha.
+El otro caso principal en el que no se esta detectando la linea, implementa el comportamiento busca linea y se envia el mensaje de linea perdidda y inicio de busqueda de linea al ESP, y se divide en dos casos. En el primer caso, la ultima que se vio la linea, estaba a la izquierda, en este caso se pararan los motores de la izquierda por completo, para asi girar mas bruscamente que en el giro a la izquierda normal, para encontrar la linea antes. El otro caso es que la ultima vez que se vio la linea, estuviera a la derecha, en este caso se pararan los motores de la derecha, para asi girar mas bruscamente que en el giro a la derecha normal, para encontrar la linea antes.
+
 ### ESP32
 El ESP es el encargado de gestionar tanto la publiación de mensajes por *MQTT* como 
 
