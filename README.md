@@ -63,7 +63,7 @@ El char **"{"** indica que lo siguiente que se reciba es el mensaje hasta que se
 **action** es un entero que se corresponde con los posibles valores de acción.
 **value** es el valor numérico que es necesario en algunos mensajes.
 
-Las funciones para comprobar si el mensaje es válido, procesar el mensaje y crear el JSON están definidas en una librería que hemos llamado **communication_stub**. Está librería también incluye los enteros correspondientes a cada tipo de acción.
+Las funciones para comprobar si el mensaje es válido, procesar el mensaje y crear el JSON están definidas en una librería que hemos llamado **communication_stub**. Esta librería también incluye los enteros correspondientes a cada tipo de acción.
 
 ## Dificultades
 - Determinar un número correcto de tareas: incialmente, teníamos separadas en dos tareas la lectura del sensor de infrarojos y la actuación de los motores, lo que era un gasto inccesario de recursos ya que el periodo del infrarrojo era menor que el de los motores, pero además, esto causaba que la lectura y la actuación no fueran sincronizadas provocando un comportamiento incorrecto del siguelíneas.
