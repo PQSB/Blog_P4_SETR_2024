@@ -29,15 +29,15 @@ El otro caso principal en el que no se esta detectando la linea, implementa el c
 
 ### ESP32
 El ESP es el encargado de:
-- la publiación de mensajes por *MQTT*
-- la publación cada cuatro segundos del mensaje ping
-- calcular el tiempo de vuelta (restando el tiempo en el que se recibe el mensaje **END_LAP** menos el tiempo almacenado cuando ser recibió el mensaje **START_LAP**)
+- la publiación de mensajes por *MQTT*.
+- la publación cada cuatro segundos del mensaje ping.
+- calcular el tiempo de vuelta (restando el tiempo en el que se recibe el mensaje **END_LAP** menos el tiempo almacenado cuando ser recibió el mensaje **START_LAP**).
 
 De esta forma se libera al arduino la carga añadida de gestionar el ping y los cálculos de tiempos, además de reducir el número de bytes a enviar por el puerto serie.
 
 El funcionamiento del ESP es el siguiente:
 - Al iniciarse:
-  1. Conectarse a la wifi y al servidor *MQTT*
+  1. Conectarse a la wifi y al servidor *MQTT*.
 
   2. Comunicar al Arduino que ya está conectado para que este comience la vuelta.
 - En el void loop:
@@ -50,6 +50,8 @@ El funcionamiento del ESP es el siguiente:
   4. Construir un JSON con los valores obtenidos del procesamiento del mensaje.
 
   5. Publicar el JSON.
+
+Para crear el mensaje JSON hemos utilizado la librería **ArduinoJson**.
 
 ## Comunicación serie
 
