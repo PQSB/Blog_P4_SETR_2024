@@ -21,3 +21,7 @@ El Sistema dede de ser capaz de:
 ### Arduino
 
 ### ESP32
+
+## Funcionalidades
+
+## Dificultades
