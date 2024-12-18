@@ -66,3 +66,6 @@ El char **"{"** indica que lo siguiente que se reciba es el mensaje hasta que se
 Las funciones para comprobar si el mensaje es válido, procesar el mensaje y crear el JSON están definidas en una librería que hemos llamado **communication_stub**. Está librería también incluye los enteros correspondientes a cada tipo de acción.
 
 ## Dificultades
+- Determinar un número correcto de tareas: incialmente, teníamos separadas en dos tareas la lectura del sensor de infrarojos y la actuación de los motores, lo que era un gasto inccesario de recursos ya que el periodo del infrarrojo era menor que el de los motores, pero además, esto causaba que la lectura y la actuación no fueran sincronizadas provocando un comportamiento incorrecto del siguelíneas.
+
+- Creación de un protoclo de comuniación que no malgaste recursos: incialemente, el protocolo que habíamos diseñado enviaba una cantidad de datos mucho mayor, lo que provocaba que añadía latencia y gasto computacional al Arduino innecesariamente.
