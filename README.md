@@ -4,15 +4,11 @@ En esta practica de la asignatura de Sistemas empotrados y de tiempo real, se pi
 
 El Sistema dede de ser capaz de:
 
-    1. Seguir la línea lo más rápido posible sin salirse.
-    
-    2. Comunicación IoT a través de MQTT.
-    
-    3. Comunicación serie entre ESP32 y Arduino UNO.
-    
-    4. Si el robot pierde la línea realizar una búsqueda de la línea de nuevo.
-    
-    5. Detección de obstáculos.
+    - Seguir la línea lo más rápido posible sin salirse.
+    - Comunicación IoT a través de MQTT.
+    - Comunicación serie entre ESP32 y Arduino UNO.
+    - Si el robot pierde la línea realizar una búsqueda de la línea de nuevo.
+    - Detección de obstáculos.
 
 ## Arduino
 
