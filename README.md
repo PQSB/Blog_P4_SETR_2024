@@ -30,10 +30,10 @@ El otro caso principal en el que no se esta detectando la linea, implementa el c
 ### ESP32
 El ESP es el encargado de:
 - la publiación de mensajes por *MQTT*.
-- la publación cada cuatro segundos del mensaje ping.
+- la publicación cada cuatro segundos del mensaje ping.
 - calcular el tiempo de vuelta (restando el tiempo en el que se recibe el mensaje **END_LAP** menos el tiempo almacenado cuando se recibió el mensaje **START_LAP**).
 
-De esta forma se libera al arduino de la carga añadida de gestionar el ping y los cálculos de tiempos, además de reducir el número de bits a enviar por el puerto serie.
+De esta forma se libera al Arduino de la carga añadida de gestionar el ping y los cálculos de tiempos, además de reducir el número de bits a enviar por el puerto serie.
 
 El funcionamiento del ESP32 es el siguiente:
 - Al iniciarse:
@@ -43,7 +43,7 @@ El funcionamiento del ESP32 es el siguiente:
 - En el void loop:
   1. Comprobar si debe ejecutarse el thread para mandar el ping.
 
-  2. En caso de que haya algo para leer, leer del puerto serie un **char**.
+  2. En caso de que haya algo para leer, leer del puerto serie (el conectado al Arduino) un **char**.
 
   3. Si el **char** leido se corresponde con el de fin de mensaje, habiéndose recibido antes el de inicio de mensaje, entonces se procesa el mensaje que se ha estado recibiendo y se comprueba si es válido.
 
