@@ -9,47 +9,47 @@
 En esta practica de la asignatura de Sistemas empotrados y de tiempo real, se pide implementar un siguelineas capaz de enviar mensajes a traves de MQTT a un servidor. Para ello se dispone de 2 placas, un Arduino Uno en el que se implementara el comportamiento del siguelineas, y un ESP32 encargado de las comuncionaciones MQTT con el servidor. 
 
 El Sistema dede de ser capaz de:
-    - Seguir la línea lo más rápido posible sin salirse.
-    - Comunicación IoT a través de MQTT.
-    - Comunicación serie entre ESP32 y Arduino UNO.
-    - Si el robot pierde la línea realizar una búsqueda de la línea de nuevo.
-    - Detección de obstáculos.
+- Seguir la línea lo más rápido posible sin salirse.
+- Comunicación IoT a través de MQTT.
+- Comunicación serie entre ESP32 y Arduino UNO.
+- Si el robot pierde la línea realizar una búsqueda de la línea de nuevo.
+- Detección de obstáculos.
 
 ## Detalles de implementación
 
 ### Arduino
 
 El Arduino es el encargado de:
-    - Comandar a los motores.
-    - Leer el sensor de infrarrojos.
-    - Leer el sensor de ultrasonidos.
+- Comandar a los motores.
+- Leer el sensor de infrarrojos.
+- Leer el sensor de ultrasonidos.
 
 Para realizar estas tareas, decidimos que lo mejor seria introudcir el planificador FreeRTOS para Arduino, este planificador tiene dos tareas:
-    - Leer el ultrasonidos, y para los motores en caso de obstaculo detectado.
-    - Leer el infrarrojo, y comandar a los motores en consecuencia.
+- Leer el ultrasonidos, y para los motores en caso de obstaculo detectado.
+- Leer el infrarrojo, y comandar a los motores en consecuencia.
 
 Ambas tareas son periodicas. La primera tarea tiene un delay entre ejecuciones de 20ms con una prioridad de 3, la segunda tarea tiene un delay entre ejecuciones de 0ms y una prioridad de 4.
 
 El funcionamiento de la primera tarea es el siguiente:
-    - Leer sensor de ultrasonidos.
-    - En caso de obstaculo detectado, detener motores, y llamar a funcion end_lap.
-    - Calcular el porcentaje de linea vista en la vuelta, con las variables rellenas en la tarea dos, explicada mas adelante.
-    - En la fucion end_lap, se enviara los mensajes de obstaculo detectado, fin de vuelta, y estadistica de linea vista, al ESP32.
+- Leer sensor de ultrasonidos.
+- En caso de obstaculo detectado, detener motores, y llamar a funcion end_lap.
+- Calcular el porcentaje de linea vista en la vuelta, con las variables rellenas en la tarea dos, explicada mas adelante.
+- En la fucion end_lap, se enviara los mensajes de obstaculo detectado, fin de vuelta, y estadistica de linea vista, al ESP32.
     - Activar flag de vuelta terminada
 
 El funcionamiento de la segunda tarea es el siguiente:
-    - Revisar que el flag de fin de vuelta no este activa
-    - Leer el sensor de infrarrojos
-    - Sumar 1 a una variable, pues se ha leido el sensor de infrarrojos, y en caso de haber visto la linea, sumar 1 a otra variable, esto servirar para el calculo del porcentaje de linea vista en la vuelta, explicado en la tarea uno.
-    - Si en la iteracion anterior la linea se habia perdido y en esta se ha encontrado, mandar al ESP32 el mensaje Linea encontrada, y el mensaje Fin de busqueda de linea.
-    - Ejecutar comportamiento siguelineas, divido en dos casos, haber visto la linea, y no haberla visto, para estos comportamientos se ha definido una constante SPEED, estos comportamientos a su vez se dividen en mas casos:
-        - Ver la linea:
-            1. Se ha visto linea en el centro del sensor, se comanda a ambos motores la velocidad SPEED.
-            2. Se ha visto la linea en el sensor de la izquierda, se comanda al motor de la izquierda SPEED/2, y al motor de la derecha SPEED, para girar hacia la izquierda.
-            3. Se ha visto la linea en el sensor de la derecha, se comanda al motor de la derecha SPEED/2, y al motor de la izquierda SPEED, para girar hacia la derecha.
-        - No ver la linea, en este caso se manda tambien el mensaje linea perdida, y el mensaje Inicio de busqueda de linea:
-            1. Se vio la linea por ultima vez a la izqueirda, se comanda al motor de la izquierda 0, y al motor de la derecha SPEED, para girar mas bruscamente hacia la izquierda.
-            2. Se vio la linea por ultima vez a la derecha, se comanda al motor de la derecha 0, y al motor de la izquierda SPEED, para girar mas bruscamente hacia la derecha.
+- Revisar que el flag de fin de vuelta no este activa
+- Leer el sensor de infrarrojos
+- Sumar 1 a una variable, pues se ha leido el sensor de infrarrojos, y en caso de haber visto la linea, sumar 1 a otra variable, esto servirar para el calculo del porcentaje de linea vista en la vuelta, explicado en la tarea uno.
+- Si en la iteracion anterior la linea se habia perdido y en esta se ha encontrado, mandar al ESP32 el mensaje Linea encontrada, y el mensaje Fin de busqueda de linea.
+- Ejecutar comportamiento siguelineas, divido en dos casos, haber visto la linea, y no haberla visto, para estos comportamientos se ha definido una constante SPEED, estos comportamientos a su vez se dividen en mas casos:
+    - Ver la linea:
+        1. Se ha visto linea en el centro del sensor, se comanda a ambos motores la velocidad SPEED.
+        2. Se ha visto la linea en el sensor de la izquierda, se comanda al motor de la izquierda SPEED/2, y al motor de la derecha SPEED, para girar hacia la izquierda.
+        3. Se ha visto la linea en el sensor de la derecha, se comanda al motor de la derecha SPEED/2, y al motor de la izquierda SPEED, para girar hacia la derecha.
+    - No ver la linea, en este caso se manda tambien el mensaje linea perdida, y el mensaje Inicio de busqueda de linea:
+        1. Se vio la linea por ultima vez a la izqueirda, se comanda al motor de la izquierda 0, y al motor de la derecha SPEED, para girar mas bruscamente hacia la izquierda.
+        2. Se vio la linea por ultima vez a la derecha, se comanda al motor de la derecha 0, y al motor de la izquierda SPEED, para girar mas bruscamente hacia la derecha.
 
 Para la implementacion del Arduino, decidimos que lo mejor seria introducir el planificador FreeRTOS para Arduino, este planificador tiene dos tareas. La primera tarea consiste en leer sensor de ultrasonidos, y en caso de detectar un obstaculo delante del coche, se marca el fin de vuelta, enviando al ESP32 tres mensajes, estos siendo el mensaje de obstaculo detectado, el mensaje de Vuelta terminada, y el mensaje de porcentaje de vuelta con linea vista.
 
