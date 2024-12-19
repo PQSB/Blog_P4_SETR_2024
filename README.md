@@ -31,7 +31,7 @@ El otro caso principal en el que no se esta detectando la linea, implementa el c
 El ESP es el encargado de:
 - la publiación de mensajes por *MQTT*.
 - la publación cada cuatro segundos del mensaje ping.
-- calcular el tiempo de vuelta (restando el tiempo en el que se recibe el mensaje **END_LAP** menos el tiempo almacenado cuando ser recibió el mensaje **START_LAP**).
+- calcular el tiempo de vuelta (restando el tiempo en el que se recibe el mensaje **END_LAP** menos el tiempo almacenado cuando se recibió el mensaje **START_LAP**).
 
 De esta forma se libera al arduino de la carga añadida de gestionar el ping y los cálculos de tiempos, además de reducir el número de bits a enviar por el puerto serie.
 
