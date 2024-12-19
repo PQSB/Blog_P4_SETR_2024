@@ -52,7 +52,7 @@ El funcionamiento de la segunda tarea es el siguiente:
         2. Se vio la línea por última vez a la derecha: se comanda al motor de la derecha 0, y al motor de la izquierda SPEED, para girar más bruscamente hacia la derecha.
 
 ### ESP32
-El ESP es el encargado de:
+El ESP32 es el encargado de:
 - la publiación de mensajes por *MQTT*.
 - la publicación cada cuatro segundos del mensaje ping.
 - calcular el tiempo de vuelta (restando el tiempo en el que se recibe el mensaje **END_LAP** menos el tiempo almacenado cuando se recibió el mensaje **START_LAP**).
