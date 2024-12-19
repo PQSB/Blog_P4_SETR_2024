@@ -4,7 +4,7 @@
 
 **Autores:** Andrés Galea Torrecilla y Adrián Navarredonda Arizaleta
 
-**Vídeo de ejecución:** 
+**Vídeo de ejecución:** https://urjc-my.sharepoint.com/:v:/g/personal/a_galea_2022_alumnos_urjc_es/EYRW2fpPwlNNlg6ACK3QV3gBEDX6kDvIr5wm-v6xOjJKyg?e=dRG7Cy
 
 En esta practica de la asignatura de Sistemas empotrados y de tiempo real, se pide implementar un siguelineas capaz de enviar mensajes a traves de MQTT a un servidor. Para ello se dispone de 2 placas, un Arduino Uno en el que se implementara el comportamiento del siguelineas, y un ESP32 encargado de las comuncionaciones MQTT con el servidor. 
 
