@@ -35,7 +35,7 @@ Para realizar estas tareas, decidimos que lo mejor sería introducir el planific
 Ambas tareas son periódicas. La primera tarea tiene un delay entre ejecuciones de 25 ms con una prioridad de 3; la segunda tarea tiene un delay entre ejecuciones de 0 ms y una prioridad de 4.
 
 El funcionamiento de la primera tarea es el siguiente:
-- Leer sensor de ultrasonidos, a traves de la funcion pulseIn, usando un timeout de 5000, que corresponde a (20cm * 2(ida y vuelta)  / velocidad sonido).
+- Leer sensor de ultrasonidos, a traves de la funcion pulseIn, usando un timeout de 5000, que corresponde a (30cm * 2(ida y vuelta)  / velocidad sonido).
 - En caso de obstaculo detectado, detener motores, y llamar a función end_lap.
 - Calcular el porcentaje de línea vista en la vuelta, con las variables rellenas en la tarea dos, explicada mas adelante.
 - En la fucion end_lap, se enviarán los mensajes de obstáculo detectado, fin de vuelta, y estadística de línea vista, al ESP32.
