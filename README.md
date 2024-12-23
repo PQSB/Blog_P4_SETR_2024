@@ -1,6 +1,6 @@
 # Blog_P4_SETR_2024
 
-**Fecha:** 19/12/2024
+**Fecha:** 23/12/2024
 
 **Autores:** Andrés Galea Torrecilla y Adrián Navarredonda Arizaleta
 
@@ -28,7 +28,7 @@ Para realizar estas tareas, decidimos que lo mejor sería introducir el planific
 - Leer el ultrasonidos, y parar los motores en caso de obstáculo detectado.
 - Leer el infrarrojo, y comandar a los motores en consecuencia.
 
-Ambas tareas son periódicas. La primera tarea tiene un delay entre ejecuciones de 20 ms con una prioridad de 3; la segunda tarea tiene un delay entre ejecuciones de 0 ms y una prioridad de 4.
+Ambas tareas son periódicas. La primera tarea tiene un delay entre ejecuciones de 25 ms con una prioridad de 3; la segunda tarea tiene un delay entre ejecuciones de 0 ms y una prioridad de 4.
 
 El funcionamiento de la primera tarea es el siguiente:
 - Leer sensor de ultrasonidos.
@@ -88,6 +88,14 @@ El char **"{"** indica que lo siguiente que se reciba es el mensaje hasta que se
 **value** es el valor numérico que es necesario en algunos mensajes.
 
 Las funciones para comprobar si el mensaje es válido, procesar el mensaje y crear el JSON están definidas en una librería que hemos llamado **communication_stub**. Esta librería también incluye los enteros correspondientes a cada tipo de acción.
+
+## Librería communication_stub
+Tiene las funciones utilizadas para el procesamiento de los mensajes recibidos y la creación del mensaje JSON a publicar por el ESP32 en cada caso. Las funciones más relevantes son:
+- **proccess_serial_msg:** esta función recibe un entero por referencia y un puntero a entero y devuelve el valor del campo acción recibido en el entero pasado por referencia, y el valor recibido (en caso de que lo haya) actualizando el contenido de la memoria en la dirección a la que apunta el puntero.
+
+- **valid_action:** devuelve *true* si la acción recibida es válida y *false* si no lo es.
+
+- **create_json_msg:** devuelve un string con el mensaje JSON creado a partir de los parámetros recibidos.
 
 ## Dificultades
 - Determinar un número correcto de tareas: incialmente teníamos separadas en dos tareas la lectura del sensor de infrarrojos y la actuación de los motores, lo que era un gasto innecesario de recursos ya que el periodo del infrarrojo era menor que el de los motores, pero además, esto causaba que la lectura y la actuación no fueran sincronizadas provocando un comportamiento incorrecto del siguelíneas.
