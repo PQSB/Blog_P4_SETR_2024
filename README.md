@@ -91,7 +91,7 @@ Las funciones para comprobar si el mensaje es válido, procesar el mensaje y cre
 
 ## Librería communication_stub
 Tiene las funciones utilizadas para el procesamiento de los mensajes recibidos y la creación de los mensajes JSON a publicar por el ESP32 en cada caso. Las funciones que incluye son:
-- **serial_send:** recibe un String con el mensaje a enviar y el puerto serie por el que se quiere enviar y envía el mensaje añadiendo el char '{' antes del mensaje y el char '}' al final de este.
+- **serial_send:** recibe un String con el mensaje a enviar y el puerto serie por el que se quiere enviar y envía el mensaje añadiendo el carácter **'{'** antes del mensaje y el carácter **'}'** al final de este.
 
 - **proccess_serial_msg:** esta función recibe un entero por referencia y un puntero a entero y devuelve el valor del campo acción recibido en el entero pasado por referencia, y el valor recibido (en caso de que lo haya) actualizando el contenido de la memoria en la dirección a la que apunta el puntero.
 
